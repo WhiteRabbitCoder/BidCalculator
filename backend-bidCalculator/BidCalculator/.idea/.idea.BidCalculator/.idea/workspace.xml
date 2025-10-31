@@ -8,7 +8,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="413c67ea-5eb4-4830-a5f2-14fc33fc3d48" name="Changes" comment="" />
+    <list default="true" id="413c67ea-5eb4-4830-a5f2-14fc33fc3d48" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BidCalculator/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BidCalculator/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BidCalculator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BidCalculator/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BidCalculatorAPI.Tests/BuyerFeeCalculatorTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BidCalculatorAPI.Tests/BuyerFeeCalculatorTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BidCalculatorAPI.Tests/SpecialFeeCalculatorTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BidCalculatorAPI.Tests/SpecialFeeCalculatorTests.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,6 +29,8 @@
     <setting file="file://$PROJECT_DIR$/BidCalculatorAPI.Tests/BuyerFeeCalculatorTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BidCalculatorAPI.Tests/CalculateControllerTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BidCalculatorAPI.Tests/SpecialFeeCalculatorTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BidCalculatorAPI.Tests/StorageFeeCalculatorTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BidCalculatorAPI.Tests/TotalFeeServiceTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BidCalculatorAPI/Constants/FeeTypes.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BidCalculatorAPI/Controllers/CalculateController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BidCalculatorAPI/Helpers/FeeHelper.cs" root0="FORCE_HIGHLIGHTING" />
@@ -44,22 +51,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.BidCalculatorAPI: http.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.BidCalculatorAPI: http.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.BidCalculatorAPI: http">
     <configuration name="BidCalculatorAPI: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/BidCalculatorAPI/BidCalculatorAPI.csproj" />
@@ -105,7 +113,8 @@
       <workItem from="1761778650364" duration="6806000" />
       <workItem from="1761793615167" duration="5408000" />
       <workItem from="1761861956305" duration="2777000" />
-      <workItem from="1761881443891" duration="15161000" />
+      <workItem from="1761881443891" duration="15464000" />
+      <workItem from="1761908315948" duration="344000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with initial configuration files and services">
       <option name="closed" value="true" />
@@ -124,6 +133,9 @@
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="initialize project structure with initial configuration files and services" />
     <option name="LAST_COMMIT_MESSAGE" value="initialize project structure with initial configuration files and services" />
