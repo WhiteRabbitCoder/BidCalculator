@@ -196,11 +196,11 @@ npm run dev
 
 If your frontend can't connect to the backend, update the API URL:
 
-**File:** `frontend-bidCalculator/src/api/api.js`
+**File:** `frontend-bidCalculator/src/services/api.js`
 
 ```javascript
 // Replace localhost with your Codespace URL
-const API_BASE_URL = 'https://your-codespace-name-5088.app.github.dev';
+const API_BASE_URL = 'https://your-codespace-name-5088.app.github.dev/api';
 ```
 
 You can copy the forwarded URL from the **PORTS** tab.
