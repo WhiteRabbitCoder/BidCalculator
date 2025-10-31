@@ -54,6 +54,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
+app.UseRouting();
+
 app.UseCors(policy => policy
     .AllowAnyOrigin()
     .AllowAnyMethod()
