@@ -3,15 +3,33 @@ using System.IO;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 using BidCalculatorAPI.Middlewares;
-using FluentValidation.AspNetCore;
+using BidCalculatorAPI.Services;
+using BidCalculatorAPI.Services.FeeCalculators;
+using BidCalculatorAPI.Services.Interfaces;
 using BidCalculatorAPI.Validators;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddControllers()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<VehicleValidator>());
 
+builder.Services.AddScoped<BuyerFeeCalculator>();
+builder.Services.AddScoped<SpecialFeeCalculator>();
+builder.Services.AddScoped<AssociationFeeCalculator>();
+builder.Services.AddScoped<StorageFeeCalculator>();
+
+builder.Services.AddScoped<IFeeCalculator, BuyerFeeCalculator>();
+builder.Services.AddScoped<IFeeCalculator, SpecialFeeCalculator>();
+builder.Services.AddScoped<IFeeCalculator, AssociationFeeCalculator>();
+builder.Services.AddScoped<IFeeCalculator, StorageFeeCalculator>();
+
+builder.Services.AddScoped<TotalFeeService>();
+
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddCors();
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -27,6 +45,7 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -34,5 +53,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
+
+app.UseCors(policy => policy
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
 app.MapControllers();
+
 app.Run();
