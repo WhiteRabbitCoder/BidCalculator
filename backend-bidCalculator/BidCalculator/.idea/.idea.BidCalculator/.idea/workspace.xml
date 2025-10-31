@@ -8,7 +8,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="413c67ea-5eb4-4830-a5f2-14fc33fc3d48" name="Changes" comment="" />
+    <list default="true" id="413c67ea-5eb4-4830-a5f2-14fc33fc3d48" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../frontend-bidCalculator/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend-bidCalculator/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend-bidCalculator/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend-bidCalculator/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend-bidCalculator/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend-bidCalculator/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend-bidCalculator/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend-bidCalculator/src/main.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -105,7 +110,7 @@
       <workItem from="1761778650364" duration="6806000" />
       <workItem from="1761793615167" duration="5408000" />
       <workItem from="1761861956305" duration="2777000" />
-      <workItem from="1761881443891" duration="10303000" />
+      <workItem from="1761881443891" duration="10911000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with initial configuration files and services">
       <option name="closed" value="true" />

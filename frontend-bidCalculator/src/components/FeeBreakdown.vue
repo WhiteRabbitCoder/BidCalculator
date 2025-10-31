@@ -1,31 +1,33 @@
 <template>
-  <div class="breakdown">
-    <h3>Fee Breakdown</h3>
-    <ul>
-      <li>Buyer Fee: {{ data.buyerFee }}</li>
-      <li>Special Fee: {{ data.specialFee }}</li>
-      <li>Association Fee: {{ data.associationFee }}</li>
-      <li>Storage Fee: {{ data.storageFee }}</li>
-      <li><strong>Total: {{ data.total }}</strong></li>
-    </ul>
-  </div>
+  <n-card title="Fee Breakdown">
+    <n-descriptions bordered column="1">
+      <n-descriptions-item label="Buyer Fee">
+        {{ formatCurrency(data.buyerFee) }}
+      </n-descriptions-item>
+      <n-descriptions-item label="Special Fee">
+        {{ formatCurrency(data.specialFee) }}
+      </n-descriptions-item>
+      <n-descriptions-item label="Association Fee">
+        {{ formatCurrency(data.associationFee) }}
+      </n-descriptions-item>
+      <n-descriptions-item label="Storage Fee">
+        {{ formatCurrency(data.storageFee) }}
+      </n-descriptions-item>
+      <n-descriptions-item label="Total Fees">
+        <strong>{{ formatCurrency(data.totalFees) }}</strong>
+      </n-descriptions-item>
+      <n-descriptions-item label="Final Bid Total">
+        <strong style="color:#007bff">{{ formatCurrency(data.bidTotal) }}</strong>
+      </n-descriptions-item>
+    </n-descriptions>
+  </n-card>
 </template>
 
 <script setup>
-defineProps({ data: Object })
-</script>
+const props = defineProps({
+  data: Object,
+});
 
-<style scoped>
-.breakdown {
-  background: #f9f9f9;
-  padding: 1rem;
-  border-radius: 8px;
-}
-ul {
-  list-style: none;
-  padding: 0;
-}
-li {
-  margin-bottom: 0.5rem;
-}
-</style>
+const formatCurrency = (value) =>
+  value.toLocaleString("en-US", { style: "currency", currency: "USD" });
+</script>

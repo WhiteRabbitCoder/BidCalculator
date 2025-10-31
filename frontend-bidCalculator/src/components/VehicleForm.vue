@@ -1,54 +1,65 @@
 <template>
-  <div class="form">
-    <h2>Bid Calculator</h2>
-    <form @submit.prevent="calculate">
-      <div>
-        <label>Price:</label>
-        <input type="number" v-model="vehicle.price" required />
-      </div>
-      <div>
-        <label>Type:</label>
-        <select v-model="vehicle.type">
-          <option value="Common">Common</option>
-          <option value="Luxury">Luxury</option>
-        </select>
-      </div>
-      <button type="submit">Calculate</button>
-    </form>
+  <n-card title="Bid Calculator" size="large" class="max-w-md mx-auto mt-12">
+    <n-form>
+      <n-form-item label="Price">
+        <n-input-number
+          v-model:value="price"
+          :min="1"
+          placeholder="Enter vehicle price"
+          style="width: 100%"
+        />
+      </n-form-item>
 
-    <FeeBreakdown v-if="result" :data="result" />
-  </div>
+      <n-form-item label="Type">
+        <n-select
+          v-model:value="type"
+          :options="[
+            { label: 'Common', value: 'Common' },
+            { label: 'Luxury', value: 'Luxury' },
+          ]"
+          placeholder="Select type"
+        />
+      </n-form-item>
+    </n-form>
+
+    <FeeBreakdown v-if="result" :data="result" class="mt-6" />
+  </n-card>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
-import FeeBreakdown from './FeeBreakdown.vue'
+import { ref, watch } from "vue";
+import { calculateBid } from "../services/api";
+import FeeBreakdown from "./FeeBreakdown.vue";
+import { useMessage } from "naive-ui";
 
-const vehicle = ref({ price: 0, type: 'Common' })
-const result = ref(null)
+const message = useMessage();
+const price = ref(null);
+const type = ref("");
+const result = ref(null);
+const loading = ref(false);
+let timeout = null;
 
-async function calculate() {
-  try {
-    const res = await axios.post('http://localhost:5088/api/calculate', vehicle.value)
-    result.value = res.data
-  } catch (err) {
-    console.error(err)
-    alert('Something went wrong.')
+// 👀 Watch both fields and auto-send when changed
+watch([price, type], ([newPrice, newType]) => {
+  clearTimeout(timeout);
+  if (!newPrice || !newType) {
+    result.value = null;
+    return;
   }
-}
-</script>
 
-<style scoped>
-.form {
-  max-width: 400px;
-  margin: 40px auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-input, select, button {
-  width: 100%;
-  padding: 8px;
-}
-</style>
+  timeout = setTimeout(async () => {
+    try {
+      loading.value = true;
+      result.value = await calculateBid({
+        price: newPrice,
+        type: newType,
+      });
+    } catch (err) {
+      message.error("Error calculating bid");
+      result.value = null;
+    } finally {
+      loading.value = false;
+    }
+  }, 500); // 🕒 0.5s delay to avoid overloading the backend
+});
+</script>
