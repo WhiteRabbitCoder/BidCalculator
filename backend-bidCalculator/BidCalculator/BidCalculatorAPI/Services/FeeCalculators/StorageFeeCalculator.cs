@@ -1,10 +1,13 @@
 using BidCalculatorAPI.Models;
 using BidCalculatorAPI.Services.Interfaces;
 
-public class StorageFeeCalculator : IFeeCalculator
+namespace BidCalculatorAPI.Services.FeeCalculators
 {
-    public decimal Calculate(Vehicle vehicle)
+    public class StorageFeeCalculator : IFeeCalculator
     {
-        return 30m;
+        public decimal Calculate(Vehicle vehicle)
+        {
+            return 100m;
+        }
     }
 }

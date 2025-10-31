@@ -1,5 +1,4 @@
 using BidCalculatorAPI.Models;
-using BidCalculatorAPI.Services.Interfaces;
 using BidCalculatorAPI.Services.FeeCalculators;
 
 namespace BidCalculatorAPI.Services
@@ -33,8 +32,10 @@ namespace BidCalculatorAPI.Services
                 StorageFee = _storageFee.Calculate(vehicle),
             };
 
-            breakdown.Total = breakdown.BuyerFee + breakdown.SpecialFee + 
-                              breakdown.AssociationFee + breakdown.StorageFee;
+            breakdown.TotalFees = breakdown.BuyerFee + breakdown.SpecialFee +
+                                  breakdown.AssociationFee + breakdown.StorageFee;
+
+            breakdown.BidTotal = vehicle.Price + breakdown.TotalFees;
 
             return breakdown;
         }

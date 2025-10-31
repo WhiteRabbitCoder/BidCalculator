@@ -2,10 +2,14 @@ using BidCalculatorAPI.Constants;
 using BidCalculatorAPI.Models;
 using BidCalculatorAPI.Services.Interfaces;
 
-public class SpecialFeeCalculator : IFeeCalculator
+namespace BidCalculatorAPI.Services.FeeCalculators
 {
-    public decimal Calculate(Vehicle vehicle)
+    public class SpecialFeeCalculator : IFeeCalculator
     {
-        return vehicle.Type == FeeTypes.Luxury ? 200m : 100m;
+        public decimal Calculate(Vehicle vehicle)
+        {
+            decimal rate = vehicle.Type == FeeTypes.Luxury ? 0.04m : 0.02m;
+            return Math.Round(vehicle.Price * rate, 2);
+        }
     }
 }
