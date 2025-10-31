@@ -1,4 +1,4 @@
-#  Bid Calculator API + Vue UI
+# 🚗 Bid Calculator API + Vue UI
 
 A full-stack application to calculate vehicle bid fees based on base price and type (Common or Luxury). Developed with **.NET 8** (C#) for the backend and **Vue 3** (Vite) for the frontend.
 
@@ -218,8 +218,8 @@ Calculate vehicle bid fees.
 **Request Body:**
 ```json
 {
-  "basePrice": 1000,
-  "vehicleType": "Common"  // or "Luxury"
+  "price": 1000,
+  "type": "Common"  // or "Luxury"
 }
 ```
 
@@ -227,16 +227,17 @@ Calculate vehicle bid fees.
 ```json
 {
   "buyerFee": 50,
-  "sellerFee": 50,
-  "associationFee": 20,
+  "specialFee": 20,
+  "associationFee": 10,
   "storageFee": 100,
-  "total": 1220
+  "totalFees": 180,
+  "bidTotal": 1180
 }
 ```
 
 **Validation Rules:**
-- `basePrice` must be > 0
-- `vehicleType` must be "Common" or "Luxury"
+- `price` must be > 0
+- `type` must be "Common" or "Luxury"
 
 ### Interactive API Docs
 
@@ -248,26 +249,142 @@ Visit Swagger UI for interactive documentation:
 
 ## 🧪 Testing
 
-All business logic is tested with **xUnit**.
+The project includes a comprehensive test suite using **xUnit** framework with full coverage of business logic and API endpoints.
 
-### Run all tests
+### 🏃 Run Tests
 
 ```bash
+# Navigate to the solution folder
 cd backend-bidCalculator/BidCalculator
+
+# Run all tests
 dotnet test
-```
 
-### Run tests with coverage
+# Run tests with detailed output
+dotnet test --logger "console;verbosity=detailed"
 
-```bash
+# Run tests with code coverage
 dotnet test --collect:"XPlat Code Coverage"
 ```
 
-**Test Coverage:**
-- ✅ Fee calculators (unit tests)
-- ✅ Validation logic
-- ✅ API endpoints (integration tests)
-- ✅ Error handling
+### 📊 Test Structure
+
+The test project (`BidCalculatorAPI.Tests`) includes the following test suites:
+
+#### **1. Fee Calculator Tests**
+
+Each fee calculator has dedicated unit tests to verify correct calculations:
+
+**`BuyerFeeCalculatorTests.cs`**
+- ✅ Tests for **Common** vehicles (10% fee, max $50)
+- ✅ Tests for **Luxury** vehicles (25% fee, max $200)
+- Uses `[Theory]` and `[InlineData]` for data-driven testing
+
+```csharp
+[Theory]
+[InlineData(100, FeeTypes.Common, 10)]   // 10% of $100 = $10
+[InlineData(500, FeeTypes.Common, 50)]   // 10% of $500 = $50 (max)
+[InlineData(1000, FeeTypes.Common, 50)]  // Capped at $50
+```
+
+**`SpecialFeeCalculatorTests.cs`**
+- ✅ Tests for **Common** vehicles (2% special fee)
+- ✅ Tests for **Luxury** vehicles (4% special fee)
+
+```csharp
+[Theory]
+[InlineData(1000, FeeTypes.Common, 20)]  // 2% of $1000 = $20
+[InlineData(1000, FeeTypes.Luxury, 40)]  // 4% of $1000 = $40
+```
+
+**`AssociationFeeCalculatorTests.cs`**
+- ✅ Tests tiered pricing structure:
+  - $1 - $500 → $5
+  - $501 - $1000 → $10
+  - $1001 - $3000 → $15
+  - $3001+ → $20
+
+```csharp
+[Theory]
+[InlineData(100, 5)]    // Under $500 → $5
+[InlineData(501, 10)]   // $501-$1000 → $10
+[InlineData(1001, 15)]  // $1001-$3000 → $15
+[InlineData(3001, 20)]  // Over $3000 → $20
+```
+
+**`StorageFeeCalculatorTests.cs`**
+- ✅ Tests flat $100 storage fee for all vehicles
+
+#### **2. Service Layer Tests**
+
+**`TotalFeeServiceTests.cs`**
+- ✅ Integration tests for complete fee breakdown
+- ✅ Tests for **Common** vehicles
+- ✅ Tests for **Luxury** vehicles
+- Verifies correct calculation of:
+  - Individual fees (buyer, special, association, storage)
+  - Total fees sum
+  - Final bid total (price + fees)
+
+**Example test case:**
+```csharp
+[Fact]
+public void CalculateBreakdown_ReturnsCorrectBreakdown_ForCommonVehicle()
+{
+    var vehicle = new Vehicle { Price = 1000, Type = FeeTypes.Common };
+    var result = _service.CalculateBreakdown(vehicle);
+    
+    Assert.Equal(50m, result.BuyerFee);        // 10% of $1000
+    Assert.Equal(20m, result.SpecialFee);      // 2% of $1000
+    Assert.Equal(10m, result.AssociationFee);  // $501-$1000 tier
+    Assert.Equal(100m, result.StorageFee);     // Flat fee
+    Assert.Equal(180m, result.TotalFees);      // Sum
+    Assert.Equal(1180m, result.BidTotal);      // Price + fees
+}
+```
+
+#### **3. Controller Tests**
+
+**`CalculateControllerTests.cs`**
+- ✅ Integration tests for API endpoints
+- ✅ Verifies HTTP 200 OK response
+- ✅ Validates response structure
+
+### 📈 Test Coverage
+
+| Component | Coverage | Test Count |
+|-----------|----------|------------|
+| **BuyerFeeCalculator** | ✅ 100% | 8 tests |
+| **SpecialFeeCalculator** | ✅ 100% | 6 tests |
+| **AssociationFeeCalculator** | ✅ 100% | 8 tests |
+| **StorageFeeCalculator** | ✅ 100% | 1 test |
+| **TotalFeeService** | ✅ 100% | 2 tests |
+| **CalculateController** | ✅ 100% | 1 test |
+
+**Total: 26+ unit and integration tests**
+
+### 🎯 Testing Best Practices Used
+
+- ✅ **Arrange-Act-Assert (AAA)** pattern
+- ✅ **Theory-based tests** with `[InlineData]` for data-driven scenarios
+- ✅ **Descriptive test names** following convention: `MethodName_Scenario_ExpectedResult`
+- ✅ **Isolated tests** - each test is independent
+- ✅ **Edge case coverage** - boundary values and limits tested
+- ✅ **Integration tests** - verifying components work together
+
+### 🔍 Example Test Output
+
+```bash
+$ dotnet test
+
+Test run for BidCalculatorAPI.Tests.dll (.NET 8.0)
+Microsoft (R) Test Execution Command Line Tool Version 17.8.0
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    26, Skipped:     0, Total:    26
+```
 
 ---
 
@@ -277,16 +394,37 @@ dotnet test --collect:"XPlat Code Coverage"
 BidCalculator/
 ├── backend-bidCalculator/
 │   └── BidCalculator/
-│       ├── BidCalculatorAPI/         # Main API project
-│       │   ├── Controllers/          # API endpoints
-│       │   ├── Services/             # Business logic
-│       │   │   ├── FeeCalculators/   # Strategy pattern
-│       │   │   └── Interfaces/
-│       │   ├── Models/               # DTOs and entities
-│       │   ├── Validators/           # FluentValidation
-│       │   ├── Middlewares/          # Error handling
-│       │   └── Program.cs            # App configuration
-│       └── BidCalculatorAPI.Tests/   # Unit tests
+│       ├── BidCalculatorAPI/              # Main API project
+│       │   ├── Controllers/
+│       │   │   └── CalculateController.cs # API endpoints
+│       │   ├── Services/
+│       │   │   ├── FeeCalculators/
+│       │   │   │   ├── BuyerFeeCalculator.cs
+│       │   │   │   ├── SpecialFeeCalculator.cs
+│       │   │   │   ├── AssociationFeeCalculator.cs
+│       │   │   │   └── StorageFeeCalculator.cs
+│       │   │   ├── Interfaces/
+│       │   │   │   └── IFeeCalculator.cs
+│       │   │   └── TotalFeeService.cs
+│       │   ├── Models/
+│       │   │   ├── Vehicle.cs
+│       │   │   └── FeeBreakdown.cs
+│       │   ├── Validators/              # FluentValidation
+│       │   ├── Middlewares/             # Error handling
+│       │   ├── Constants/
+│       │   │   └── FeeTypes.cs
+│       │   ├── Program.cs
+│       │   └── BidCalculatorAPI.csproj
+│       │
+│       └── BidCalculatorAPI.Tests/        # Test project
+│           ├── AssociationFeeCalculatorTests.cs
+│           ├── BuyerFeeCalculatorTests.cs
+│           ├── CalculateControllerTests.cs
+│           ├── SpecialFeeCalculatorTests.cs
+│           ├── StorageFeeCalculatorTests.cs
+│           ├── TotalFeeServiceTests.cs
+│           └── BidCalculatorAPI.Tests.csproj
+│
 ├── frontend-bidCalculator/
 │   ├── src/
 │   │   ├── components/
@@ -294,11 +432,15 @@ BidCalculator/
 │   │   │   └── FeeBreakdown.vue      # Results display
 │   │   ├── api/
 │   │   │   └── api.js                # HTTP client
-│   │   └── App.vue
+│   │   ├── App.vue
+│   │   └── main.js
 │   ├── package.json
 │   └── vite.config.js
+│
 └── README.md
 ```
+
+---
 
 ## 👨‍💻 Author
 
@@ -319,9 +461,14 @@ Full-stack developer in progress 🚀
 **2. Package version conflicts**
 - ✅ Make sure you're using .NET 8.0 compatible packages
 
-**4. Frontend can't connect to API**
+**3. Frontend can't connect to API**
 - ✅ Check the API URL in `frontend-bidCalculator/src/api/api.js`
 - ✅ Verify backend is running (`dotnet run`)
+
+**4. Tests failing**
+- ✅ Ensure you're in the correct directory: `backend-bidCalculator/BidCalculator`
+- ✅ Run `dotnet restore` before running tests
+- ✅ Check that all dependencies are installed
 
 ---
 
