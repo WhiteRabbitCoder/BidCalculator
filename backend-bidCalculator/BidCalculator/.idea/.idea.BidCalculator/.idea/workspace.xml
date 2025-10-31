@@ -24,6 +24,7 @@
     <setting file="file://$PROJECT_DIR$/BidCalculatorAPI.Tests/BuyerFeeCalculatorTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BidCalculatorAPI.Tests/SpecialFeeCalculatorTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BidCalculatorAPI/Controllers/CalculateController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BidCalculatorAPI/Middlewares/ErrorHandlingMiddleware.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BidCalculatorAPI/Models/Vehicle.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BidCalculatorAPI/Services/FeeCalculators/AssociationFeeCalculator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BidCalculatorAPI/Services/FeeCalculators/StorageFeeCalculator.cs" root0="FORCE_HIGHLIGHTING" />
@@ -101,6 +102,7 @@
       <workItem from="1761778650364" duration="6806000" />
       <workItem from="1761793615167" duration="5408000" />
       <workItem from="1761861956305" duration="2777000" />
+      <workItem from="1761881443891" duration="3966000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with initial configuration files and services">
       <option name="closed" value="true" />

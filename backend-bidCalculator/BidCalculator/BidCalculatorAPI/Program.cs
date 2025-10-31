@@ -1,21 +1,29 @@
-using BidCalculatorAPI.Services;
-using BidCalculatorAPI.Services.Interfaces;
-using BidCalculatorAPI.Services.FeeCalculators;
+using System;
+using System.IO;
+using System.Reflection;
+using Microsoft.OpenApi.Models;
+using BidCalculatorAPI.Middlewares;
+using FluentValidation.AspNetCore;
+using BidCalculatorAPI.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<VehicleValidator>());
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-// Register fee calculators
-builder.Services.AddScoped<IFeeCalculator, BuyerFeeCalculator>();
-builder.Services.AddScoped<IFeeCalculator, SpecialFeeCalculator>();
-builder.Services.AddScoped<IFeeCalculator, AssociationFeeCalculator>();
-builder.Services.AddScoped<IFeeCalculator, StorageFeeCalculator>();
-
-// Register the total service
-builder.Services.AddScoped<TotalFeeService>();
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Bid Calculator API",
+        Version = "v1",
+        Description = "API for calculating vehicle bid fees."
+    });
+});
 
 var app = builder.Build();
 
@@ -25,5 +33,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 app.Run();
