@@ -8,10 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="413c67ea-5eb4-4830-a5f2-14fc33fc3d48" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BidCalculator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BidCalculator/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BidCalculatorAPI.Tests/UnitTest1.cs" beforeDir="false" />
-    </list>
+    <list default="true" id="413c67ea-5eb4-4830-a5f2-14fc33fc3d48" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,7 +110,7 @@
       <workItem from="1761861956305" duration="2777000" />
       <workItem from="1761881443891" duration="15464000" />
       <workItem from="1761908315948" duration="344000" />
-      <workItem from="1762151445523" duration="298000" />
+      <workItem from="1762151445523" duration="910000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with initial configuration files and services">
       <option name="closed" value="true" />

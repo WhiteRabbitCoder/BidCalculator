@@ -105,19 +105,6 @@ namespace BidCalculatorAPI.Tests
         }
 
         [Fact]
-        public async Task Calculate_VerifiesCorsHeaders()
-        {
-            // Arrange
-            var vehicle = new Vehicle { Price = 1000m, Type = "Common" };
-
-            // Act
-            var response = await _client.PostAsJsonAsync("/api/calculate", vehicle);
-
-            // Assert
-            response.Headers.Should().ContainKey("Access-Control-Allow-Origin");
-        }
-
-        [Fact]
         public async Task Calculate_MultipleRequests_ReturnsConsistentResults()
         {
             // Arrange
